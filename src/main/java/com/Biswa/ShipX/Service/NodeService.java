@@ -16,4 +16,16 @@ public class NodeService {
     public List<Node> findAll() {
         return NodeRepo.findAll();
     }
+
+    public void save(Node req) {
+        NodeRepo.save(req);
+    }
+    public Boolean delete(int id){
+      if(NodeRepo.existsById(id)){
+          NodeRepo.deleteById(id);
+          return true;
+      }
+      return  false;
+    }
+
 }

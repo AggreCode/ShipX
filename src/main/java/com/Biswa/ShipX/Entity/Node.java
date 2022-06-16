@@ -1,15 +1,16 @@
 package com.Biswa.ShipX.Entity;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import javax.persistence.*;
 
-@Entity(name = "Node")
+@Entity
 public class Node {
     @Id
-private int NodeID;
-private String Address;
-private float CoordinateX;
-private float CoordinateY;
+    private int NodeID;
+
+    private String NodeName;
+    private String Address;
+    private float CoordinateX;
+    private float CoordinateY;
 private String NodeType;
 private String State;
 private String District;
@@ -18,8 +19,9 @@ private int PinCode;
     public Node() {
     }
 
-    public Node(int nodeID, String address, float coordinateX, float coordinateY, String nodeType, String state, String district, int pinCode) {
+    public Node(int nodeID, String nodeName, String address, float coordinateX, float coordinateY, String nodeType, String state, String district, int pinCode) {
         NodeID = nodeID;
+        NodeName = nodeName;
         Address = address;
         CoordinateX = coordinateX;
         CoordinateY = coordinateY;
@@ -91,5 +93,12 @@ private int PinCode;
 
     public void setPinCode(int pinCode) {
         PinCode = pinCode;
+    }
+    public String getNodeName() {
+        return NodeName;
+    }
+
+    public void setNodeName(String nodeName) {
+        NodeName = nodeName;
     }
 }
