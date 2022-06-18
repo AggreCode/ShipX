@@ -1,25 +1,51 @@
 package com.Biswa.ShipX.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 @Entity
 public class Path {
     @Id
     private int PathID;
     private int Distance;
-    private int FromNodeID;
-    private int ToNodeID;
+
+    @ManyToOne(fetch= FetchType.LAZY,optional = false)
+    @JoinColumn(name="FromNodeID",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Node FromNodeID;
+    @ManyToOne(fetch= FetchType.LAZY,optional = false)
+    @JoinColumn(name="ToNodeID",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Node ToNodeID;
 
     public Path() {
     }
 
-    public Path(int pathID, int distance, int fromNodeID, int toNodeID) {
+    public Path(int pathID, int distance, Node fromNodeID, Node toNodeID) {
         PathID = pathID;
         Distance = distance;
         FromNodeID = fromNodeID;
         ToNodeID = toNodeID;
     }
+
+    public Node getFromNodeID() {
+        return FromNodeID;
+    }
+
+    public void setFromNodeID(Node fromNodeID) {
+        FromNodeID = fromNodeID;
+    }
+
+    public Node getToNodeID() {
+        return ToNodeID;
+    }
+
+    public void setToNodeID(Node toNodeID) {
+        ToNodeID = toNodeID;
+    }
+
 
     public int getPathID() {
         return PathID;
@@ -37,19 +63,5 @@ public class Path {
         Distance = distance;
     }
 
-    public int getFromNodeID() {
-        return FromNodeID;
-    }
 
-    public void setFromNodeID(int fromNodeID) {
-        FromNodeID = fromNodeID;
-    }
-
-    public int getToNodeID() {
-        return ToNodeID;
-    }
-
-    public void setToNodeID(int toNodeID) {
-        ToNodeID = toNodeID;
-    }
 }

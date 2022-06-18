@@ -1,3 +1,5 @@
+//Node
+
 "NodeID":1,
 "NodeName":"kho",
 "Address":"Kholua",
@@ -7,3 +9,10 @@
 "State":"odisha",
 "District":"Angul",
 "PinCode":759104
+
+
+//Path
+
+"PathID":1,
+"Distance":120,
+ "ToNodeID":2

@@ -1,11 +1,13 @@
 package com.Biswa.ShipX.Entity;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class Node {
     @Id
     private int NodeID;
+
 
     private String NodeName;
     private String Address;
