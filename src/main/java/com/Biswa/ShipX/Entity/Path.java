@@ -1,5 +1,6 @@
 package com.Biswa.ShipX.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,42 +9,58 @@ import javax.persistence.*;
 @Entity
 public class Path {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+
     private int PathID;
     private int Distance;
 
-    @ManyToOne(fetch= FetchType.LAZY,optional = false)
+
+//    private int FromNodeID;
+//
+//    private int ToNodeID;
+    @ManyToOne
     @JoinColumn(name="FromNodeID",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Node FromNodeID;
-    @ManyToOne(fetch= FetchType.LAZY,optional = false)
+    private Node FromNode;
+    @ManyToOne
     @JoinColumn(name="ToNodeID",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Node ToNodeID;
+    private Node ToNode;
 
-    public Path() {
+
+
+
+
+//    public int getFromNodeID() {
+//        return FromNodeID;
+//    }
+//
+//    public void setFromNodeID(int fromNodeID) {
+//        FromNodeID = fromNodeID;
+//    }
+//
+//    public int getToNodeID() {
+//        return ToNodeID;
+//    }
+//
+//    public void setToNodeID(int toNodeID) {
+//        ToNodeID = toNodeID;
+//    }
+
+    public Node getFromNode() {
+        return FromNode;
     }
 
-    public Path(int pathID, int distance, Node fromNodeID, Node toNodeID) {
-        PathID = pathID;
-        Distance = distance;
-        FromNodeID = fromNodeID;
-        ToNodeID = toNodeID;
+    public void setFromNode(Node fromNode) {
+        FromNode = fromNode;
     }
 
-    public Node getFromNodeID() {
-        return FromNodeID;
+    public Node getToNode() {
+        return ToNode;
     }
 
-    public void setFromNodeID(Node fromNodeID) {
-        FromNodeID = fromNodeID;
-    }
-
-    public Node getToNodeID() {
-        return ToNodeID;
-    }
-
-    public void setToNodeID(Node toNodeID) {
-        ToNodeID = toNodeID;
+    public void setToNode(Node toNode) {
+        ToNode = toNode;
     }
 
 

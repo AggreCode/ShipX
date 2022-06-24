@@ -27,7 +27,7 @@ public class PathService {
 
 
     public List<Path> getAllPathById(Integer nodeId) {
-     return pathRepository.getPathsByNodeID(nodeId);
+     return pathRepository.findByFromNodeID(nodeId);
     }
 
     public Path save(Path path) {

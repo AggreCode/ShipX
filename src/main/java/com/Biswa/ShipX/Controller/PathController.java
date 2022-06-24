@@ -2,6 +2,7 @@ package com.Biswa.ShipX.Controller;
 
 import com.Biswa.ShipX.Entity.Path;
 import com.Biswa.ShipX.Exception.ResourceNotFoundException;
+import com.Biswa.ShipX.Repository.PathRepository;
 import com.Biswa.ShipX.ReqRes_Format.PathRequest;
 import com.Biswa.ShipX.Service.NodeService;
 import com.Biswa.ShipX.Service.PathService;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class PathController {
 
     @Autowired
@@ -23,16 +24,15 @@ public class PathController {
     @Autowired
     private NodeService nodeService;
 
-    @GetMapping("/ShipX/api/path")
-    public List<Path> getAllPath() {
+    @GetMapping("/ShipX/api/paths")
+    public List<Path> getAllPaths() {
         return pathService.getAllPath();
     }
 
     @GetMapping("/ShipX/api/{nodeId}/paths/")
-    public ResponseEntity getAllPathsForNodeID(@PathVariable(value = "nodeId") Integer nodeId) {
+    public ResponseEntity getAllPathsForNodeID(@PathVariable Integer nodeId) {
         if (!nodeService.findById(nodeId)) {
             return new ResponseEntity<>("Node Id Not found", HttpStatus.NOT_FOUND);
-
         }
         List<Path> paths = pathService.getAllPathById(nodeId);
         return new ResponseEntity<>(paths, HttpStatus.OK);
@@ -46,25 +46,21 @@ public class PathController {
         {
 
             Integer ToNodeId = req.get("ToNodeID");
-//                            pathRequest.getToNodeID();
-
             nodeService.getById(ToNodeId).map(ToNode -> {
-                path.setToNodeID(ToNode);
-                path.setFromNodeID(FromNode);
+                path.setToNode(ToNode);
+                path.setFromNode(FromNode);
                 return 1;
             }).orElseThrow(() -> new ResourceNotFoundException("Not found To Node with id = " + ToNodeId));
-
-            path.setPathID(req.get("ToNodeID"));
+            path.setPathID(req.get("PathID"));
             path.setDistance(req.get("Distance"));
             return pathService.save(path);
         }).orElseThrow(() -> new ResourceNotFoundException("Not found From Node with id = " + fromNodeId));
         return new ResponseEntity<>(res_path, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/ShipX/api/paths/{PathID}")
+    @DeleteMapping("/ShipX/api/{PathID}/paths")
     public ResponseEntity deletePath(@PathVariable Integer PathID) {
-
-         pathService.deleteById(PathID);
+        pathService.deleteById(PathID);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

@@ -25,15 +25,18 @@ public class NodeController {
 
     private static final Logger log = LoggerFactory.getLogger(NodeController.class);
 
-    @GetMapping("ShipX/api/admin/nodes")
-    public List<Node> get(){return nodeService.findAll();}
-    @GetMapping("ShipX/api/admin/nodes/{nodeId}")
+    @GetMapping("ShipX/api/nodes")
+    public List<Node> getNodes(){return nodeService.findAll();}
+
+
+    @GetMapping("ShipX/api/nodes/{nodeId}")
     public Node getNodeById(@PathVariable Integer nodeId){
         return nodeService.getById(nodeId).get();
 
     }
 
-    @PostMapping("ShipX/api/admin/nodes")
+
+    @PostMapping("ShipX/api/nodes")
     public ResponseEntity post(@RequestBody @NotNull HashMap<String,String> req){
 
         Node node = new Node();
@@ -51,7 +54,7 @@ public class NodeController {
         nodeService.save(node);
        return ResponseEntity.ok().build();
     }
-    @DeleteMapping("ShipX/api/admin/nodes/{id}")
+    @DeleteMapping("ShipX/api/nodes/{id}")
     public ResponseEntity<Long> delete(@PathVariable int id)
     {
       var isRemoved= nodeService.delete(id);
